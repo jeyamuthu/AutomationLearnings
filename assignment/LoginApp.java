@@ -1,5 +1,6 @@
 package assignment;
 
+import java.util.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
@@ -81,7 +82,7 @@ public class LoginApp {
 	    
 	       //verify the product price in cart match the inventory price
 	       String match = driver.findElement(By.xpath("//div[@class='inventory_item_price']")).getText();
-	       System.out.print(match);
+	       
 	       if(First_productPrice.contains(match))
 	       {
 	    	   System.out.println("Price Match");
@@ -100,6 +101,32 @@ public class LoginApp {
 	       // click continue
 	       driver.findElement(By.xpath("//input[@type='submit']")).click();
 	       
+	       //store the all price
+	       
+	       int arr[] = new int[3];
+	    
+	    String sub_total = driver.findElement(By.xpath("//div[@class='summary_subtotal_label']")).getText();
+	    String subTotalValue = sub_total.replaceAll("[^\\d.]", ""); 
+	    System.out.println(subTotalValue);
+	    double val1 = Double.parseDouble(subTotalValue);
+	    arr[0] = (int) val1; 
+
+	    
+	    String tax = driver.findElement(By.xpath("//div[@class='summary_tax_label']")).getText();
+	    String taxValue = tax.replaceAll("[^\\d.]", "");
+	    double val2 = Double.parseDouble(taxValue);
+	    arr[1] = (int) val2;
+
+	    String total = driver.findElement(By.xpath("//div[@class='summary_total_label']")).getText();
+	    String totalValue = total.replaceAll("[^\\d.]", "");
+	    double val3 = Double.parseDouble(totalValue);
+	    arr[2] = (int) val3;
+
+	    Arrays.sort(arr);
+	    
+	    // print the second heighest price
+	       System.out.println(arr[1]);
+	       
 	       
 	       
 	       //click finish
@@ -109,6 +136,10 @@ public class LoginApp {
 	       File source1 = driver.getScreenshotAs(OutputType.FILE);
 	       File dest1 = new File("./images/finish.png");
 	       FileUtils.copyFile(source1,dest1);
+	       
+	       
+	       //close the browser
+	       driver.quit();
 	       
 	}
 }
