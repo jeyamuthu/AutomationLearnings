@@ -125,7 +125,7 @@ public class LoginApp {
 	    Arrays.sort(arr);
 	    
 	    // print the second heighest price
-	       System.out.println(arr[1]);
+	       System.out.println(arr[arr.length-2]);
 	       
 	       
 	       
